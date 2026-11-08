@@ -8,7 +8,7 @@ import { AGENCY_CONFIG } from "@/data/agencyData";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-between overflow-hidden bg-[#F6F6F4] dark:bg-[#0A0A0C] border-b border-[#E2E2DC] dark:border-[#222228] pt-8 pb-12 transition-colors duration-300">
+    <section className="relative min-h-[92vh] flex flex-col justify-between overflow-hidden bg-[#F6F6F4] dark:bg-[#0A0A0C] border-b border-[#E2E2DC] dark:border-[#222228] pt-12 sm:pt-16 pb-12 transition-colors duration-300">
       {/* Interactive 3D WebGL Hero Model */}
       <HeroCanvas currentShape="neural" />
 
@@ -16,15 +16,16 @@ export default function HeroSection() {
       <div className="absolute inset-0 grid-hairline pointer-events-none opacity-30 z-0" />
 
       {/* Top Small Label */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-8 pt-4">
-        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 dark:bg-[#141417]/90 border border-[#E2E2DC] dark:border-[#282830] shadow-sm backdrop-blur-sm text-xs font-mono text-[#0A0A0A] dark:text-white">
-          <span className="w-2 h-2 rounded-full bg-[#FF7120] animate-ping" />
-          <span className="font-bold text-[#FF7120] tracking-wider uppercase">
-            {AGENCY_CONFIG.heroSmallLabel}
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-8 pt-2 sm:pt-4">
+        <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1.5 rounded-full bg-white/90 dark:bg-[#141417]/90 border border-[#E2E2DC] dark:border-[#282830] shadow-sm backdrop-blur-sm text-[11px] sm:text-xs font-mono text-[#0A0A0A] dark:text-white max-w-full">
+          <span className="w-2 h-2 rounded-full bg-[#FF7120] animate-ping shrink-0" />
+          <span className="font-bold text-[#FF7120] tracking-wider uppercase whitespace-nowrap shrink-0">
+            <span className="hidden sm:inline">YOUR TECHNOLOGY </span>
+            <span className="sm:hidden">TECH </span>PARTNER
           </span>
-          <span className="text-[#888888] dark:text-[#555555]">|</span>
-          <span className="text-[#555555] dark:text-[#A0A09B] uppercase">
-            WINHUB SOLUTIONS
+          <span className="text-[#888888] dark:text-[#555555] shrink-0">|</span>
+          <span className="text-[#555552] dark:text-[#A0A09B] uppercase whitespace-nowrap shrink-0">
+            <span className="hidden sm:inline">WINHUB </span>SOLUTIONS
           </span>
         </div>
       </div>
