@@ -70,7 +70,7 @@ export default function RootLayout({
   const localBizSchema = generateLocalBusinessSchema();
 
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" href="/icon.png?v=winhub4" />
         <link rel="shortcut icon" href="/favicon.ico?v=winhub4" />
@@ -82,17 +82,19 @@ export default function RootLayout({
             __html: `
               try {
                 const saved = localStorage.getItem('winhub-theme') || localStorage.getItem('wintech-theme');
-                if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark');
-                } else {
+                if (saved === 'light') {
                   document.documentElement.classList.remove('dark');
+                } else {
+                  document.documentElement.classList.add('dark');
                 }
-              } catch (e) {}
+              } catch (e) {
+                document.documentElement.classList.add('dark');
+              }
             `,
           }}
         />
       </head>
-      <body className="font-sans antialiased bg-[#F6F6F4] dark:bg-[#0A0A0C] text-[#0A0A0A] dark:text-[#F6F6F4]">
+      <body className="font-sans antialiased bg-[#0A0A0C] text-[#F6F6F4] dark:bg-[#0A0A0C] dark:text-[#F6F6F4]">
         <ThemeProvider>
           <CursorSpotlight />
           {children}
