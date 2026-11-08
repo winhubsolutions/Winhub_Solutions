@@ -9,13 +9,11 @@ export type HeroShapeType = "globe" | "neural" | "wave" | "knot";
 interface HeroCanvasProps {
   currentShape?: HeroShapeType;
   onShapeChange?: (shape: HeroShapeType) => void;
-  hideControls?: boolean;
 }
 
 export default function HeroCanvas({
   currentShape = "neural",
   onShapeChange,
-  hideControls = false,
 }: HeroCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeShape, setActiveShape] = useState<HeroShapeType>(currentShape);
@@ -362,66 +360,64 @@ export default function HeroCanvas({
         aria-hidden="true"
       />
 
-      {/* Floating Interactive 3D Shape Switcher (Only if not controlled externally) */}
-      {!hideControls && (
-        <div className="absolute bottom-4 right-4 sm:right-8 z-30 pointer-events-auto flex items-center gap-1.5 p-1 rounded-full bg-white/80 dark:bg-[#121216]/80 backdrop-blur-md border border-[#E2E2DC] dark:border-[#282830] shadow-md text-xs font-mono">
-          <span className="text-[10px] text-[#888888] px-2.5 uppercase tracking-wider hidden sm:inline-block">
-            // 3D VISUAL:
-          </span>
+      {/* Floating Interactive 3D Shape Switcher */}
+      <div className="absolute bottom-4 right-4 sm:right-8 z-30 pointer-events-auto flex items-center gap-1.5 p-1 rounded-full bg-white/80 dark:bg-[#121216]/80 backdrop-blur-md border border-[#E2E2DC] dark:border-[#282830] shadow-md text-xs font-mono">
+        <span className="text-[10px] text-[#888888] px-2.5 uppercase tracking-wider hidden sm:inline-block">
+          // 3D VISUAL:
+        </span>
 
-          <button
-            onClick={() => handleShapeSelect("globe")}
-            title="Digital Global Sphere"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all cursor-pointer ${
-              activeShape === "globe"
-                ? "bg-[#FF7120] text-white font-bold shadow-sm"
-                : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
-            }`}
-          >
-            <Globe className="w-3.5 h-3.5" />
-            <span className="text-[11px]">Globe</span>
-          </button>
+        <button
+          onClick={() => handleShapeSelect("globe")}
+          title="Digital Global Sphere"
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all cursor-pointer ${
+            activeShape === "globe"
+              ? "bg-[#FF7120] text-white font-bold shadow-sm"
+              : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
+          }`}
+        >
+          <Globe className="w-3.5 h-3.5" />
+          <span className="text-[11px]">Globe</span>
+        </button>
 
-          <button
-            onClick={() => handleShapeSelect("neural")}
-            title="AI Neural Polyhedron"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all cursor-pointer ${
-              activeShape === "neural"
-                ? "bg-[#FF7120] text-white font-bold shadow-sm"
-                : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
-            }`}
-          >
-            <Cpu className="w-3.5 h-3.5" />
-            <span className="text-[11px]">Neural</span>
-          </button>
+        <button
+          onClick={() => handleShapeSelect("neural")}
+          title="AI Neural Polyhedron"
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all cursor-pointer ${
+            activeShape === "neural"
+              ? "bg-[#FF7120] text-white font-bold shadow-sm"
+              : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
+          }`}
+        >
+          <Cpu className="w-3.5 h-3.5" />
+          <span className="text-[11px]">Neural</span>
+        </button>
 
-          <button
-            onClick={() => handleShapeSelect("wave")}
-            title="Quantum Cyber Wave"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all cursor-pointer ${
-              activeShape === "wave"
-                ? "bg-[#FF7120] text-white font-bold shadow-sm"
-                : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
-            }`}
-          >
-            <Waves className="w-3.5 h-3.5" />
-            <span className="text-[11px]">Wave</span>
-          </button>
+        <button
+          onClick={() => handleShapeSelect("wave")}
+          title="Quantum Cyber Wave"
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all cursor-pointer ${
+            activeShape === "wave"
+              ? "bg-[#FF7120] text-white font-bold shadow-sm"
+              : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
+          }`}
+        >
+          <Waves className="w-3.5 h-3.5" />
+          <span className="text-[11px]">Wave</span>
+        </button>
 
-          <button
-            onClick={() => handleShapeSelect("knot")}
-            title="Geometric Torus Knot"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all cursor-pointer ${
-              activeShape === "knot"
-                ? "bg-[#FF7120] text-white font-bold shadow-sm"
-                : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span className="text-[11px]">Knot</span>
-          </button>
-        </div>
-      )}
+        <button
+          onClick={() => handleShapeSelect("knot")}
+          title="Geometric Torus Knot"
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all cursor-pointer ${
+            activeShape === "knot"
+              ? "bg-[#FF7120] text-white font-bold shadow-sm"
+              : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
+          }`}
+        >
+          <Sparkles className="w-3.5 h-3.5" />
+          <span className="text-[11px]">Knot</span>
+        </button>
+      </div>
     </>
   );
 }
