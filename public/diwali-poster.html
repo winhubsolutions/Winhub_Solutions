@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Winhub Solutions - Official Diwali Festival Poster</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-cormorant { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* Gold Foil Text Effect */
+    .gold-foil-title {
+      background: linear-gradient(135deg, #FFFDF0 0%, #FDE087 25%, #DF9E12 50%, #FFF3B3 75%, #B87802 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 18px rgba(223, 158, 18, 0.45));
+    }
+
+    /* Luxury Card Shadows */
+    .luxury-frame {
+      box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.9), 
+                  0 0 90px -10px rgba(255, 140, 20, 0.4), 
+                  inset 0 0 60px -15px rgba(220, 160, 30, 0.15);
+    }
+
+    /* Theme Background Variants */
+    .theme-maroon {
+      background: linear-gradient(180deg, #22040c 0%, #3d0917 50%, #150207 100%);
+    }
+    .theme-navy {
+      background: linear-gradient(180deg, #040c1e 0%, #0a1b3e 50%, #030815 100%);
+    }
+    .theme-obsidian {
+      background: linear-gradient(180deg, #0e081c 0%, #1a0f35 50%, #07030f 100%);
+    }
+
+    /* Organic Flame Shimmer Animation */
+    @keyframes flame-pulse {
+      0%, 100% { transform: scale(1) rotate(-0.5deg); filter: drop-shadow(0 -4px 18px rgba(255, 130, 0, 0.95)); }
+      30% { transform: scale(1.04, 0.96) rotate(1deg); filter: drop-shadow(0 -6px 26px rgba(255, 180, 20, 1)); }
+      60% { transform: scale(0.97, 1.03) rotate(-1.5deg); filter: drop-shadow(0 -4px 20px rgba(255, 110, 0, 0.9)); }
+      85% { transform: scale(1.02, 1.01) rotate(1deg); filter: drop-shadow(0 -6px 28px rgba(255, 195, 40, 1)); }
+    }
+
+    .flame-center {
+      animation: flame-pulse 2.2s ease-in-out infinite;
+      transform-origin: 50% 90%;
+    }
+
+    .flame-side-1 {
+      animation: flame-pulse 2s ease-in-out infinite 0.4s;
+      transform-origin: 50% 90%;
+    }
+
+    .flame-side-2 {
+      animation: flame-pulse 2.4s ease-in-out infinite 0.8s;
+      transform-origin: 50% 90%;
+    }
+
+    @keyframes bell-sway-left {
+      0%, 100% { transform: rotate(1.8deg); }
+      50% { transform: rotate(-1.8deg); }
+    }
+    @keyframes bell-sway-right {
+      0%, 100% { transform: rotate(-1.8deg); }
+      50% { transform: rotate(1.8deg); }
+    }
+
+    .sway-left { animation: bell-sway-left 4.2s ease-in-out infinite; transform-origin: top center; }
+    .sway-right { animation: bell-sway-right 4.8s ease-in-out infinite 0.5s; transform-origin: top center; }
+
+    @keyframes slow-mandala {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .rotate-mandala {
+      animation: slow-mandala 140s linear infinite;
+      transform-origin: center;
+    }
+  </style>
+</head>
+<body class="bg-[#080308] text-white flex flex-col items-center justify-center min-h-screen p-3 sm:p-6 font-sans antialiased selection:bg-[#ff7120] selection:text-black">
+
+  <!-- Interactive Control Bar: Theme Switcher & PNG Exporter -->
+  <div class="w-full max-w-[640px] mb-3 flex flex-col sm:flex-row items-center justify-between gap-2.5 px-2">
+    
+    <!-- Theme Palette Selector -->
+    <div class="flex items-center gap-1.5 bg-[#170811]/90 p-1 rounded-xl border border-[#ffd700]/30 shadow-md">
+      <span class="text-[10px] font-bold uppercase tracking-wider text-[#ffd700] px-2">Theme:</span>
+      <button onclick="setTheme('maroon')" id="btn-maroon" class="cursor-pointer text-xs font-semibold px-2.5 py-1 rounded-lg bg-[#ffd700] text-[#1c0308] font-bold shadow transition-all">
+        🍷 Royal Maroon
+      </button>
+      <button onclick="setTheme('navy')" id="btn-navy" class="cursor-pointer text-xs font-semibold px-2.5 py-1 rounded-lg text-gray-300 hover:text-white transition-all">
+        🌌 Peacock Blue
+      </button>
+      <button onclick="setTheme('obsidian')" id="btn-obsidian" class="cursor-pointer text-xs font-semibold px-2.5 py-1 rounded-lg text-gray-300 hover:text-white transition-all">
+        👑 Midnight Gold
+      </button>
+    </div>
+
+    <!-- Export Action -->
+    <button id="downloadBtn" onclick="exportPoster()" class="cursor-pointer inline-flex items-center gap-2 bg-gradient-to-r from-[#ffd700] via-[#ff7120] to-[#e69500] text-[#090514] font-black text-xs uppercase tracking-wider px-4 py-2 rounded-xl shadow-xl hover:brightness-110 active:scale-95 transition-all">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+      Export Poster (PNG)
+    </button>
+  </div>
+
+  <!-- Poster Frame (4:5 Aspect Ratio — 1080x1350 Standard Agency Canvas) -->
+  <div id="posterCard" class="relative w-full max-w-[640px] aspect-[4/5] theme-maroon transition-colors duration-500 rounded-2xl overflow-hidden border border-[#e5a823]/40 luxury-frame flex flex-col justify-between p-6 sm:p-9 text-center select-none">
+    
+    <!-- Deep Layer Background Artwork: Arches, Lighting & Festive Geometry -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      
+      <!-- Volumetric Ambient Lighting Halos -->
+      <div id="glowTop" class="absolute -top-24 left-1/2 -translate-x-1/2 w-[440px] h-[440px] bg-[#ff8800]/25 rounded-full blur-[100px]"></div>
+      <div id="glowCenter" class="absolute top-[42%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[580px] bg-[#d99414]/20 rounded-full blur-[120px]"></div>
+      <div id="glowBottom" class="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[460px] h-[460px] bg-[#ff5100]/30 rounded-full blur-[90px]"></div>
+
+      <!-- Traditional Mughal/Rajasthani Jharokha Archway Framing -->
+      <svg class="absolute top-0 left-0 w-full h-44 opacity-30 text-[#ffd700]" viewBox="0 0 640 180" fill="none">
+        <path d="M0 0 H640 V40 C580 40 550 70 510 70 C470 70 450 40 390 40 C360 40 345 55 320 80 C295 55 280 40 250 40 C190 40 170 70 130 70 C90 70 60 40 0 40 Z" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M0 0 H640 V20 C600 20 570 35 540 35 C510 35 480 20 440 20 C400 20 370 35 320 60 C270 35 240 20 200 20 C160 20 130 35 100 35 C70 35 40 20 0 20 Z" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      </svg>
+
+      <!-- Hanging Golden Temple Bells (Left & Right Flanks) -->
+      <!-- Left Bell 1 -->
+      <div class="absolute top-0 left-6 sm:left-10 sway-left flex flex-col items-center opacity-90">
+        <div class="w-[1.5px] h-20 sm:h-28 bg-gradient-to-b from-[#ffd700] via-[#e69500] to-[#b36b00]"></div>
+        <svg class="w-5 h-7 sm:w-6 sm:h-8 -mt-1 text-[#ffd700]" viewBox="0 0 30 40" fill="none">
+          <path d="M15 4 C9 4 6 12 5 22 L2 28 H28 L25 22 C24 12 21 4 15 4 Z" fill="url(#bellGrad)" stroke="#ffe082" stroke-width="1"/>
+          <circle cx="15" cy="32" r="2.5" fill="#ffd700"/>
+          <path d="M15 28 V34" stroke="#b36b00" stroke-width="1.5"/>
+        </svg>
+      </div>
+
+      <!-- Right Bell 2 -->
+      <div class="absolute top-0 right-6 sm:right-10 sway-right flex flex-col items-center opacity-90">
+        <div class="w-[1.5px] h-24 sm:h-32 bg-gradient-to-b from-[#ffd700] via-[#e69500] to-[#b36b00]"></div>
+        <svg class="w-5 h-7 sm:w-6 sm:h-8 -mt-1 text-[#ffd700]" viewBox="0 0 30 40" fill="none">
+          <path d="M15 4 C9 4 6 12 5 22 L2 28 H28 L25 22 C24 12 21 4 15 4 Z" fill="url(#bellGrad)" stroke="#ffe082" stroke-width="1"/>
+          <circle cx="15" cy="32" r="2.5" fill="#ffd700"/>
+          <path d="M15 28 V34" stroke="#b36b00" stroke-width="1.5"/>
+          <defs>
+            <linearGradient id="bellGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fff3b3"/>
+              <stop offset="40%" stop-color="#ffd700"/>
+              <stop offset="75%" stop-color="#b87802"/>
+              <stop offset="100%" stop-color="#5a3800"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- Rotating Golden Rangoli / Mandala Watermark -->
+      <svg class="absolute top-[44%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[620px] h-[620px] opacity-[0.09] rotate-mandala" viewBox="0 0 500 500" fill="none" stroke="#ffd700">
+        <circle cx="250" cy="250" r="235" stroke-width="1.5" stroke-dasharray="6 8"/>
+        <circle cx="250" cy="250" r="205" stroke-width="1"/>
+        <circle cx="250" cy="250" r="165" stroke-width="1.5"/>
+        <circle cx="250" cy="250" r="120" stroke-width="1"/>
+        <g stroke-width="1.4">
+          <path d="M250,55 C265,130 295,160 370,175 C295,190 265,220 250,295 C235,220 205,190 130,175 C205,160 235,130 250,55 Z" />
+          <path d="M250,55 C265,130 295,160 370,175 C295,190 265,220 250,295 C235,220 205,190 130,175 C205,160 235,130 250,55 Z" transform="rotate(45 250 250)" />
+          <path d="M250,55 C265,130 295,160 370,175 C295,190 265,220 250,295 C235,220 205,190 130,175 C205,160 235,130 250,55 Z" transform="rotate(22.5 250 250)" />
+          <path d="M250,55 C265,130 295,160 370,175 C295,190 265,220 250,295 C235,220 205,190 130,175 C205,160 235,130 250,55 Z" transform="rotate(67.5 250 250)" />
+        </g>
+      </svg>
+
+      <!-- Double Inset Luxury Framing Lines & Filigree Corners -->
+      <div class="absolute inset-3 sm:inset-3.5 border border-[#e5a823]/35 rounded-xl pointer-events-none"></div>
+      <div class="absolute inset-4.5 sm:inset-5 border border-[#e5a823]/20 rounded-lg pointer-events-none"></div>
+
+      <svg class="absolute top-4 left-4 w-9 h-9 text-[#ffd700]/70" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M2 2 H35 M2 2 V35 M8 8 H24 M8 8 V24"/>
+        <circle cx="2" cy="2" r="2.5" fill="currentColor"/>
+        <path d="M2 2 L18 18" stroke-width="1"/>
+      </svg>
+      <svg class="absolute top-4 right-4 w-9 h-9 text-[#ffd700]/70 -scale-x-100" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M2 2 H35 M2 2 V35 M8 8 H24 M8 8 V24"/>
+        <circle cx="2" cy="2" r="2.5" fill="currentColor"/>
+        <path d="M2 2 L18 18" stroke-width="1"/>
+      </svg>
+      <svg class="absolute bottom-4 left-4 w-9 h-9 text-[#ffd700]/70 -scale-y-100" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M2 2 H35 M2 2 V35 M8 8 H24 M8 8 V24"/>
+        <circle cx="2" cy="2" r="2.5" fill="currentColor"/>
+        <path d="M2 2 L18 18" stroke-width="1"/>
+      </svg>
+      <svg class="absolute bottom-4 right-4 w-9 h-9 text-[#ffd700]/70 -scale-x-100 -scale-y-100" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M2 2 H35 M2 2 V35 M8 8 H24 M8 8 V24"/>
+        <circle cx="2" cy="2" r="2.5" fill="currentColor"/>
+        <path d="M2 2 L18 18" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- Section 1: Executive Corporate Header -->
+    <div class="relative z-10 pt-1 flex flex-col items-center">
+      
+      <!-- Festive Salutation Bar -->
+      <div class="flex items-center gap-3 mb-2">
+        <span class="h-[1px] w-10 sm:w-16 bg-gradient-to-r from-transparent to-[#ffd700]"></span>
+        <span class="text-[10px] sm:text-[11px] font-bold tracking-[0.35em] uppercase text-[#ffd700] drop-shadow-[0_0_8px_rgba(255,215,0,0.5)]">
+          FESTIVAL OF LIGHTS • 2026
+        </span>
+        <span class="h-[1px] w-10 sm:w-16 bg-gradient-to-l from-transparent to-[#ffd700]"></span>
+      </div>
+
+      <!-- Luxury Brand Lockup: Logo Mark + Corporate Wordmark -->
+      <div class="flex items-center justify-center gap-3.5 bg-black/40 border border-[#ffd700]/30 px-6 py-2.5 rounded-xl shadow-[0_8px_25px_rgba(0,0,0,0.6)] backdrop-blur-md">
+        <!-- Official Winhub 3D Logo Icon -->
+        <img id="logoIconImg" src="data:image/png;base64,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" onerror="this.src='logo-icon.png'" class="h-10 sm:h-11 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(255,113,32,0.7)]" alt="Winhub Solutions" />
+        
+        <div class="text-left flex flex-col justify-center">
+          <div class="text-2xl sm:text-3xl font-black tracking-tight leading-none flex items-center">
+            <span class="text-white drop-shadow-[0_2px_10px_rgba(255,255,255,0.25)]">WINHUB</span>
+            <span class="text-[#FF7120] ml-2 drop-shadow-[0_2px_14px_rgba(255,113,32,0.6)]">SOLUTIONS</span>
+          </div>
+          <p class="text-[9px] sm:text-[10px] font-mono font-bold tracking-[0.32em] text-[#e0d6c8] mt-1">
+            EXCEED YOUR EXPECTATION
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Grounded Altar Centerpiece with Brass Diyas & Floral Rangoli -->
+    <div class="relative z-10 my-auto py-1 flex flex-col items-center">
+      
+      <!-- Multi-Diya Tiered Sacred Lighting Altar -->
+      <div class="relative w-full max-w-[420px] h-38 sm:h-42 flex items-center justify-center">
+        
+        <!-- Radiant Warm Floor Light Diffusion -->
+        <div class="absolute bottom-0 w-80 h-16 bg-[#ff8800]/35 rounded-full blur-xl pointer-events-none"></div>
+        
+        <!-- Intricate Floral Rangoli Petal Bed (Floor Surface) -->
+        <svg class="absolute bottom-1 w-72 sm:w-84 h-16 opacity-85 pointer-events-none" viewBox="0 0 320 60" fill="none">
+          <ellipse cx="160" cy="35" rx="140" ry="22" fill="#2d060e" stroke="#ffd700" stroke-width="1.2"/>
+          <ellipse cx="160" cy="35" rx="115" ry="16" fill="#520c1a" stroke="#ff7700" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <ellipse cx="160" cy="35" rx="80" ry="11" fill="#7a1428" stroke="#ffe082" stroke-width="1"/>
+          <g fill="#ffd700">
+            <circle cx="35" cy="35" r="3"/>
+            <circle cx="65" cy="45" r="2.5"/>
+            <circle cx="105" cy="50" r="2.5"/>
+            <circle cx="160" cy="54" r="3.5"/>
+            <circle cx="215" cy="50" r="2.5"/>
+            <circle cx="255" cy="45" r="2.5"/>
+            <circle cx="285" cy="35" r="3"/>
+          </g>
+        </svg>
+
+        <!-- Left Outer Accent Diya -->
+        <div class="absolute left-4 sm:left-8 bottom-3 opacity-85 scale-75 origin-bottom">
+          <svg class="w-20 h-20 overflow-visible" viewBox="0 0 100 90">
+            <path class="flame-side-1" d="M50 8 C57 26 62 40 59 52 C56 62 44 62 41 52 C38 40 43 26 50 8 Z" fill="url(#sideFlameGrad)" filter="drop-shadow(0 0 10px #ff6600)"/>
+            <path d="M16 52 C18 70 34 82 50 82 C66 82 82 70 84 52 C72 58 60 61 50 61 C40 61 28 58 16 52 Z" fill="url(#diyaBrassAltar)" stroke="#ffe082" stroke-width="1.5"/>
+            <ellipse cx="50" cy="52" rx="34" ry="8" fill="#3d1400" stroke="#ffd700" stroke-width="1"/>
+          </svg>
+        </div>
+
+        <!-- Centerpiece: Grand Hand-Engraved Imperial Brass Diya -->
+        <div class="relative z-10">
+          <svg class="overflow-visible" style="width: 220px; height: 170px;" viewBox="0 0 220 170">
+            <defs>
+              <radialGradient id="sacredFlame" cx="50%" cy="80%" r="65%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="25%" stop-color="#fff694"/>
+                <stop offset="65%" stop-color="#ff7700"/>
+                <stop offset="100%" stop-color="#d42600" stop-opacity="0.1"/>
+              </radialGradient>
+              <linearGradient id="diyaBrassAltar" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFF4B8"/>
+                <stop offset="30%" stop-color="#FFD700"/>
+                <stop offset="65%" stop-color="#E09500"/>
+                <stop offset="100%" stop-color="#703900"/>
+              </linearGradient>
+              <linearGradient id="oilPool" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#571a00"/>
+                <stop offset="100%" stop-color="#170500"/>
+              </linearGradient>
+              <radialGradient id="sideFlameGrad" cx="50%" cy="80%" r="60%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="35%" stop-color="#ffdd55"/>
+                <stop offset="75%" stop-color="#ff5500"/>
+                <stop offset="100%" stop-color="#aa1100" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Grand Central Sacred Flame (Animated) -->
+            <g class="flame-center" style="transform-origin: 110px 98px;">
+              <path d="M110 12 C128 46 142 74 135 98 C128 120 92 120 85 98 C78 74 92 46 110 12 Z" fill="url(#sacredFlame)" opacity="0.96"/>
+              <path d="M110 38 C118 60 125 78 121 94 C117 106 103 106 99 94 C95 78 102 60 110 38 Z" fill="#ffffff" opacity="0.95"/>
+            </g>
+
+            <!-- Diya Oil Reservoir -->
+            <ellipse cx="110" cy="100" rx="68" ry="16" fill="url(#oilPool)" stroke="#FFD700" stroke-width="1.8"/>
+
+            <!-- Sculpted Brass Diya Vessel -->
+            <path d="M42 100 C44 136 76 156 110 156 C144 156 176 136 178 100 C156 112 130 116 110 116 C90 116 64 112 42 100 Z" fill="url(#diyaBrassAltar)" stroke="#FFE082" stroke-width="2" filter="drop-shadow(0 12px 18px rgba(0,0,0,0.85))"/>
+
+            <!-- Intricate Filigree & Engraved Beads on Brass Vessel -->
+            <path d="M50 105 Q110 123 170 105" stroke="#FFFDE8" stroke-width="2.2" fill="none" opacity="0.85"/>
+            <circle cx="110" cy="136" r="5" fill="#FFE082" stroke="#8B4500" stroke-width="1"/>
+            <circle cx="88" cy="131" r="4" fill="#FFCA28" stroke="#8B4500" stroke-width="0.8"/>
+            <circle cx="132" cy="131" r="4" fill="#FFCA28" stroke="#8B4500" stroke-width="0.8"/>
+            <circle cx="70" cy="122" r="3.2" fill="#FFB300"/>
+            <circle cx="150" cy="122" r="3.2" fill="#FFB300"/>
+
+            <!-- Decorative Base Pedestal -->
+            <ellipse cx="110" cy="158" rx="34" ry="7" fill="#5A2300" stroke="#FFD700" stroke-width="1.5"/>
+          </svg>
+        </div>
+
+        <!-- Right Outer Accent Diya -->
+        <div class="absolute right-4 sm:right-8 bottom-3 opacity-85 scale-75 origin-bottom">
+          <svg class="w-20 h-20 overflow-visible" viewBox="0 0 100 90">
+            <path class="flame-side-2" d="M50 8 C57 26 62 40 59 52 C56 62 44 62 41 52 C38 40 43 26 50 8 Z" fill="url(#sideFlameGrad)" filter="drop-shadow(0 0 10px #ff6600)"/>
+            <path d="M16 52 C18 70 34 82 50 82 C66 82 82 70 84 52 C72 58 60 61 50 61 C40 61 28 58 16 52 Z" fill="url(#diyaBrassAltar)" stroke="#ffe082" stroke-width="1.5"/>
+            <ellipse cx="50" cy="52" rx="34" ry="8" fill="#3d1400" stroke="#ffd700" stroke-width="1"/>
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- Traditional Calligraphy Salutation (Devanagari Authentic Touch) -->
+      <div class="mt-1 mb-0.5">
+        <span class="font-cormorant italic text-2xl sm:text-3xl text-[#ffe082] tracking-wider drop-shadow-[0_2px_10px_rgba(255,224,130,0.5)]">
+          ॥ शुभ दीपावली ॥
+        </span>
+      </div>
+
+      <!-- Main Headline: Sculpted Imperial Gold Leaf Typography -->
+      <h1 class="font-cinzel text-4xl sm:text-5xl font-black tracking-widest gold-foil-title uppercase my-1">
+        HAPPY DIWALI
+      </h1>
+
+      <!-- Elegant Imperial Divider Motif -->
+      <div class="flex items-center justify-center gap-3 my-1.5 text-[#ffd700]">
+        <div class="w-16 h-[1.5px] bg-gradient-to-r from-transparent via-[#ffd700] to-[#ffd700]"></div>
+        <span class="text-xs sm:text-sm tracking-widest text-[#ffd700] drop-shadow-[0_0_8px_#ffd700]">✦ 🪔 ✦</span>
+        <div class="w-16 h-[1.5px] bg-gradient-to-l from-transparent via-[#ffd700] to-[#ffd700]"></div>
+      </div>
+
+      <!-- Polished Agency Greeting Message -->
+      <p class="text-xs sm:text-[13px] text-[#fbf7f0] font-normal leading-relaxed max-w-[460px] px-2 text-center mt-0.5">
+        May the sacred radiance of Deepawali dispel all darkness, inspiring <strong class="text-[#ffe58f] font-semibold">limitless prosperity</strong>, vibrant health, and <strong class="text-[#ff9d5c] font-semibold">breakthrough innovation</strong>.
+      </p>
+      
+      <p class="text-[11px] sm:text-xs text-[#eedecb] font-medium mt-1 tracking-wide max-w-[440px]">
+        We extend our deepest gratitude to our clients, partners, and collaborators for your trusted partnership and shared ambition.
+      </p>
+    </div>
+
+    <!-- Section 3: Redesigned Executive Corporate Footer -->
+    <div class="relative z-10 pt-2 flex flex-col items-center">
+      
+      <!-- Filigree Divider Line -->
+      <div class="w-full max-w-[500px] h-[1px] bg-gradient-to-r from-transparent via-[#ffd700]/50 to-transparent mb-2.5"></div>
+      
+      <!-- Unified Executive Footer Plaque -->
+      <div class="w-full max-w-[530px] bg-black/45 border border-[#ffd700]/35 rounded-xl p-3 sm:p-3.5 shadow-2xl backdrop-blur-md flex flex-col gap-2">
+        
+        <!-- Main Line: Logo + Greetings + Contact -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-2.5 px-1">
+          
+          <!-- Left: Official Winhub Logo Mark + Greetings -->
+          <div class="flex items-center gap-3">
+            <img id="footerLogoIcon" src="data:image/png;base64,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" onerror="this.src='logo-icon.png'" class="h-8 sm:h-9 w-auto object-contain filter drop-shadow-[0_2px_8px_rgba(255,113,32,0.6)]" alt="Winhub Icon" />
+            <div class="text-left">
+              <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-[#ffd700]">With Warm Festive Regards</div>
+              <div class="text-xs sm:text-sm font-extrabold text-white tracking-wide">Team Winhub Solutions</div>
+            </div>
+          </div>
+
+          <!-- Right: Official Web Portal -->
+          <div class="flex items-center gap-2">
+            <a href="https://winhubsolutions.com" target="_blank" class="flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#ffd700] hover:text-white transition-colors bg-[#080414]/80 px-3 py-1.5 rounded-lg border border-[#ffd700]/30 shadow-inner">
+              <svg class="w-3.5 h-3.5 text-[#ff7120]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+              winhubsolutions.com
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Sub Line: Direct Connect & Locations -->
+        <div class="pt-1.5 border-t border-[#ffd700]/15 flex flex-col sm:flex-row items-center justify-between text-[10px] text-[#e0d4c3] px-1 gap-1">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center gap-1 text-gray-200">
+              <span class="text-[#ff7120]">📞</span> +91 73865 66445
+            </span>
+            <span class="text-gray-500">•</span>
+            <span class="flex items-center gap-1 text-gray-200">
+              <span class="text-[#ffd700]">✉️</span> contact@winhubsolutions.com
+            </span>
+          </div>
+
+          <div class="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-[#d0c2b0]">
+            <span>Hyderabad</span>
+            <span class="text-[#ffd700]">•</span>
+            <span>Warangal</span>
+            <span class="text-[#ffd700]">•</span>
+            <span>India</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Core Brand Pillars -->
+      <div class="flex items-center justify-center gap-3 text-[9px] sm:text-[10px] text-[#c4b5a0] font-mono tracking-[0.25em] mt-1.5 uppercase">
+        <span>INNOVATION</span>
+        <span class="text-[#ffd700]">•</span>
+        <span>INTEGRITY</span>
+        <span class="text-[#ffd700]">•</span>
+        <span>EXCELLENCE</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Offscreen 1080x1350 High-Resolution Canvas for 1-Click PNG Download -->
+  <canvas id="exportCanvas" width="1080" height="1350" class="hidden"></canvas>
+
+  <script>
+    let currentTheme = 'maroon';
+
+    const themes = {
+      maroon: {
+        top: '#22040c',
+        mid: '#3d0917',
+        bot: '#150207',
+        btnId: 'btn-maroon',
+        glowTop: 'rgba(255, 136, 0, 0.28)',
+        glowCenter: 'rgba(217, 148, 20, 0.24)'
+      },
+      navy: {
+        top: '#040c1e',
+        mid: '#0a1b3e',
+        bot: '#030815',
+        btnId: 'btn-navy',
+        glowTop: 'rgba(255, 160, 30, 0.3)',
+        glowCenter: 'rgba(235, 175, 40, 0.25)'
+      },
+      obsidian: {
+        top: '#0e081c',
+        mid: '#1a0f35',
+        bot: '#07030f',
+        btnId: 'btn-obsidian',
+        glowTop: 'rgba(255, 136, 0, 0.25)',
+        glowCenter: 'rgba(217, 148, 20, 0.22)'
+      }
+    };
+
+    function setTheme(t) {
+      currentTheme = t;
+      const card = document.getElementById('posterCard');
+      card.classList.remove('theme-maroon', 'theme-navy', 'theme-obsidian');
+      card.classList.add('theme-' + t);
+
+      // Update button styling
+      ['maroon', 'navy', 'obsidian'].forEach(name => {
+        const btn = document.getElementById('btn-' + name);
+        if (name === t) {
+          btn.className = 'cursor-pointer text-xs font-semibold px-2.5 py-1 rounded-lg bg-[#ffd700] text-[#1c0308] font-bold shadow transition-all';
+        } else {
+          btn.className = 'cursor-pointer text-xs font-semibold px-2.5 py-1 rounded-lg text-gray-300 hover:text-white transition-all';
+        }
+      });
+    }
+
+    function exportPoster() {
+      const btn = document.getElementById('downloadBtn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<span class="animate-spin inline-block w-3.5 h-3.5 border-2 border-black border-t-transparent rounded-full"></span> Rendering 1080x1350 PNG...`;
+      btn.disabled = true;
+
+      const canvas = document.getElementById('exportCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      const cfg = themes[currentTheme] || themes.maroon;
+
+      // 1. Dynamic Background Gradient based on chosen theme
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, cfg.top);
+      bgGrad.addColorStop(0.5, cfg.mid);
+      bgGrad.addColorStop(1, cfg.bot);
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // 2. Ambient Radial Lighting Halos
+      const glowTop = ctx.createRadialGradient(w/2, 200, 20, w/2, 200, 500);
+      glowTop.addColorStop(0, cfg.glowTop);
+      glowTop.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = glowTop;
+      ctx.fillRect(0, 0, w, h);
+
+      const glowCenter = ctx.createRadialGradient(w/2, h/2 - 20, 30, w/2, h/2 - 20, 560);
+      glowCenter.addColorStop(0, cfg.glowCenter);
+      glowCenter.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = glowCenter;
+      ctx.fillRect(0, 0, w, h);
+
+      const glowFloor = ctx.createRadialGradient(w/2, 780, 20, w/2, 780, 420);
+      glowFloor.addColorStop(0, 'rgba(255, 110, 0, 0.38)');
+      glowFloor.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = glowFloor;
+      ctx.fillRect(0, 0, w, h);
+
+      // 3. Ornate Double Gold Borders
+      ctx.strokeStyle = 'rgba(229, 168, 35, 0.45)';
+      ctx.lineWidth = 3.5;
+      ctx.strokeRect(36, 36, w - 72, h - 72);
+
+      ctx.strokeStyle = 'rgba(229, 168, 35, 0.22)';
+      ctx.lineWidth = 1.8;
+      ctx.strokeRect(52, 52, w - 104, h - 104);
+
+      // Corner Accents
+      const corners = [[58, 58], [w - 58, 58], [58, h - 58], [w - 58, h - 58]];
+      ctx.fillStyle = '#ffd700';
+      corners.forEach(([cx, cy]) => {
+        ctx.beginPath();
+        ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // 4. Header Section: Salutation Bar
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 18px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#ffd700';
+      ctx.fillText('—  ✦  FESTIVAL OF LIGHTS • 2026  ✦  —', w/2, 115);
+
+      // 5. Draw Winhub Official Logo Icon + Typography
+      const logoImg = document.getElementById('logoIconImg');
+      const iconW = 75;
+      const iconH = 90;
+      const brandY = 160;
+
+      ctx.drawImage(logoImg, w/2 - 250, brandY - 5, iconW, iconH);
+
+      ctx.textAlign = 'left';
+      ctx.font = '900 58px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText('WINHUB', w/2 - 155, brandY + 48);
+
+      ctx.fillStyle = '#FF7120';
+      ctx.fillText('SOLUTIONS', w/2 + 105, brandY + 48);
+
+      ctx.font = '700 18px "Courier New", monospace';
+      ctx.fillStyle = '#e0d6c8';
+      ctx.fillText('EXCEED YOUR EXPECTATION', w/2 - 153, brandY + 80);
+
+      // 6. Draw Rangoli Altar & Centerpiece Diya
+      const diyaY = 570;
+
+      // Rangoli Base
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(w/2, diyaY + 45, 260, 42, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#2d060e';
+      ctx.fill();
+      ctx.strokeStyle = '#ffd700';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.ellipse(w/2, diyaY + 45, 210, 32, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#520c1a';
+      ctx.fill();
+      ctx.strokeStyle = '#ff7700';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.restore();
+
+      // Main Center Flame
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(w/2, diyaY - 180);
+      ctx.bezierCurveTo(w/2 + 42, diyaY - 115, w/2 + 58, diyaY - 65, w/2 + 38, diyaY - 20);
+      ctx.bezierCurveTo(w/2 + 20, diyaY, w/2 - 20, diyaY, w/2 - 38, diyaY - 20);
+      ctx.bezierCurveTo(w/2 - 58, diyaY - 65, w/2 - 42, diyaY - 115, w/2, diyaY - 180);
+      const flameGrad = ctx.createLinearGradient(w/2, diyaY - 180, w/2, diyaY);
+      flameGrad.addColorStop(0, '#fff6a0');
+      flameGrad.addColorStop(0.35, '#ffaa00');
+      flameGrad.addColorStop(0.75, '#ff3700');
+      flameGrad.addColorStop(1, 'rgba(255, 0, 0, 0.3)');
+      ctx.fillStyle = flameGrad;
+      ctx.fill();
+
+      // Flame White Core
+      ctx.beginPath();
+      ctx.moveTo(w/2, diyaY - 135);
+      ctx.bezierCurveTo(w/2 + 22, diyaY - 95, w/2 + 26, diyaY - 55, w/2 + 16, diyaY - 25);
+      ctx.bezierCurveTo(w/2 + 8, diyaY - 10, w/2 - 8, diyaY - 10, w/2 - 16, diyaY - 25);
+      ctx.bezierCurveTo(w/2 - 26, diyaY - 55, w/2 - 22, diyaY - 95, w/2, diyaY - 135);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.restore();
+
+      // Brass Diya Vessel
+      ctx.save();
+      const bowlGrad = ctx.createLinearGradient(w/2 - 150, diyaY - 15, w/2 + 150, diyaY + 90);
+      bowlGrad.addColorStop(0, '#FFF4B8');
+      bowlGrad.addColorStop(0.3, '#FFD700');
+      bowlGrad.addColorStop(0.7, '#E09500');
+      bowlGrad.addColorStop(1, '#703900');
+
+      ctx.beginPath();
+      ctx.moveTo(w/2 - 140, diyaY - 15);
+      ctx.bezierCurveTo(w/2 - 130, diyaY + 70, w/2 - 65, diyaY + 100, w/2, diyaY + 100);
+      ctx.bezierCurveTo(w/2 + 65, diyaY + 100, w/2 + 130, diyaY + 70, w/2 + 140, diyaY - 15);
+      ctx.bezierCurveTo(w/2 + 80, diyaY + 10, w/2 - 80, diyaY + 10, w/2 - 140, diyaY - 15);
+      ctx.fillStyle = bowlGrad;
+      ctx.fill();
+      ctx.strokeStyle = '#FFE082';
+      ctx.lineWidth = 3.5;
+      ctx.stroke();
+
+      // Diya Rim
+      ctx.beginPath();
+      ctx.ellipse(w/2, diyaY - 15, 140, 28, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#3a1300';
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+
+      // 7. Typography: ॥ शुभ दीपावली ॥ & HAPPY DIWALI
+      ctx.textAlign = 'center';
+      ctx.font = 'italic 50px "Cormorant Garamond", Georgia, serif';
+      ctx.fillStyle = '#ffe082';
+      ctx.fillText('॥ शुभ दीपावली ॥', w/2, 750);
+
+      // HAPPY DIWALI Title
+      ctx.font = 'bold 84px "Cinzel", Georgia, serif';
+      const textGrad = ctx.createLinearGradient(w/2 - 280, 840, w/2 + 280, 840);
+      textGrad.addColorStop(0, '#FFFDF0');
+      textGrad.addColorStop(0.3, '#FDE087');
+      textGrad.addColorStop(0.65, '#DF9E12');
+      textGrad.addColorStop(1, '#FFF3B3');
+      ctx.fillStyle = textGrad;
+      ctx.fillText('HAPPY DIWALI', w/2, 845);
+
+      // Star Motif
+      ctx.font = '22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#ffd700';
+      ctx.fillText('✦   🪔   ✦', w/2, 895);
+
+      // Body Copy
+      ctx.font = '500 27px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#fbf7f0';
+      ctx.fillText('May the sacred radiance of Deepawali dispel all darkness, inspiring', w/2, 955);
+      
+      ctx.font = 'bold 28px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#ffe58f';
+      ctx.fillText('limitless prosperity, vibrant health & breakthrough innovation.', w/2, 1000);
+
+      ctx.font = '500 23px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#eedecb';
+      ctx.fillText('Thank you for your trusted partnership, shared ambition, and continued belief.', w/2, 1055);
+
+      // 8. Executive Footer Plaque on Canvas
+      const footerCardY = 1130;
+      const footerW = 880;
+      const footerH = 120;
+      const footerX = (w - footerW) / 2;
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+      ctx.beginPath();
+      ctx.roundRect(footerX, footerCardY, footerW, footerH, 18);
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(255, 215, 0, 0.45)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Draw Logo Icon in Footer
+      ctx.drawImage(logoImg, footerX + 28, footerCardY + 22, 50, 60);
+
+      // Left Footer
+      ctx.textAlign = 'left';
+      ctx.font = 'bold 15px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#ffd700';
+      ctx.fillText('WITH WARM FESTIVE REGARDS', footerX + 92, footerCardY + 45);
+
+      ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText('Team Winhub Solutions', footerX + 92, footerCardY + 74);
+
+      // Right Footer: Website URL
+      ctx.textAlign = 'right';
+      ctx.font = 'bold 22px "Courier New", monospace';
+      ctx.fillStyle = '#ffd700';
+      ctx.fillText('🌐 winhubsolutions.com', footerX + footerW - 35, footerCardY + 58);
+
+      ctx.font = '500 15px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#e0d4c3';
+      ctx.fillText('📞 +91 73865 66445   •   ✉️ contact@winhubsolutions.com   •   Hyderabad • Warangal', footerX + footerW - 35, footerCardY + 95);
+      ctx.restore();
+
+      // Bottom Brand Pillars
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 16px "Courier New", monospace';
+      ctx.fillStyle = '#c4b5a0';
+      ctx.fillText('✨ INNOVATION  •  INTEGRITY  •  EXCELLENCE ✨', w/2, 1290);
+
+      // Trigger PNG Download
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `Winhub_Solutions_Diwali_Poster_${currentTheme}.png`;
+      link.href = dataUrl;
+      link.click();
+
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
