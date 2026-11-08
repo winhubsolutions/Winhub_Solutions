@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/footer/Footer";
 import { Terminal, Clock, ArrowRight, X, Sparkles, BookOpen, CheckCircle2 } from "lucide-react";
@@ -98,10 +98,33 @@ export default function BlogPage() {
     },
   ];
 
+  const [articlesList, setArticlesList] = useState<Article[]>(articles);
+
+  useEffect(() => {
+    fetch("/api/blog-posts?limit=100")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.docs && data.docs.length > 0) {
+          const mapped: Article[] = data.docs.map((d: any) => ({
+            id: String(d.id),
+            slug: d.slug,
+            title: d.title,
+            category: d.category || "Technology Trends",
+            readTime: d.readTime || "5 min read",
+            date: d.publishedAt ? new Date(d.publishedAt).toLocaleDateString() : "2026",
+            excerpt: d.excerpt || "",
+            image: d.featuredImage?.url || "/images/ai-mesh.jpg",
+          }));
+          setArticlesList([...mapped, ...articles]);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const filtered =
     selectedCategory === "All"
-      ? articles
-      : articles.filter((a) => a.category === selectedCategory);
+      ? articlesList
+      : articlesList.filter((a) => a.category === selectedCategory);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F6F6F4] dark:bg-[#0A0A0C] text-[#0A0A0A] dark:text-white transition-colors duration-300">

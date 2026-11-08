@@ -36,6 +36,31 @@ export default buildConfig({
     },
     theme: "dark",
     dateFormat: "yyyy-MM-dd HH:mm:ss",
+    livePreview: {
+      breakpoints: [
+        { label: "Mobile (iPhone)", name: "mobile", width: 375, height: 667 },
+        { label: "Tablet (iPad)", name: "tablet", width: 768, height: 1024 },
+        { label: "Desktop (1440p)", name: "desktop", width: 1440, height: 900 },
+      ],
+      collections: ["pages", "services", "projects", "blog-posts"],
+      url: ({ data, collectionConfig }: any) => {
+        const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "";
+        const slug = data?.slug;
+        if (collectionConfig?.slug === "pages") {
+          return `${serverUrl}/${slug === "home" || !slug ? "" : slug}`;
+        }
+        if (collectionConfig?.slug === "services") {
+          return `${serverUrl}/services/${slug || ""}`;
+        }
+        if (collectionConfig?.slug === "projects") {
+          return `${serverUrl}/portfolio`;
+        }
+        if (collectionConfig?.slug === "blog-posts") {
+          return `${serverUrl}/blog`;
+        }
+        return `${serverUrl}/`;
+      },
+    },
   },
 
   collections: [

@@ -5,7 +5,7 @@ import Footer from "@/components/footer/Footer";
 import DynamicBlocks from "@/components/blocks/DynamicBlocks";
 import RichTextRenderer from "@/components/ui/RichTextRenderer";
 
-const CMS_URL = process.env.NEXT_PUBLIC_PAYLOAD_URL || "http://localhost:3000";
+const CMS_URL = process.env.NEXT_PUBLIC_SERVER_URL || process.env.NEXT_PUBLIC_PAYLOAD_URL || "https://winhubsolutions.com";
 
 interface PageProps {
   params: Promise<{

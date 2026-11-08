@@ -52,13 +52,48 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+async function getDynamicService(slug: string) {
+  try {
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "https://winhubsolutions.com";
+    const res = await fetch(`${serverUrl}/api/services?where[slug][equals]=${slug}&limit=1`, {
+      next: { revalidate: 10 },
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return data?.docs?.[0] || null;
+    }
+  } catch (e) {}
+  return null;
+}
+
 export default async function SingleServicePage({ params }: Props) {
   const { slug } = await params;
-  const service = SERVICES_CATALOG.find((s) => s.slug === slug);
+  const staticService = SERVICES_CATALOG.find((s) => s.slug === slug);
+  const cmsService = await getDynamicService(slug);
 
-  if (!service) {
+  if (!staticService && !cmsService) {
     notFound();
   }
+
+  // Merge dynamic CMS document with fallback catalog definition
+  const service: ServiceDetail = {
+    ...staticService,
+    ...(cmsService || {}),
+    title: cmsService?.title || staticService?.title || "",
+    h1: cmsService?.h1 || staticService?.h1 || staticService?.title || "",
+    slug: staticService?.slug || cmsService?.slug || slug,
+    shortTag: cmsService?.shortTag || staticService?.shortTag || "",
+    intro: cmsService?.intro || staticService?.intro || "",
+    overview: cmsService?.overview || staticService?.overview || "",
+    expertise: (cmsService?.expertise && cmsService.expertise.length > 0) ? cmsService.expertise : staticService?.expertise || [],
+    technologies: (cmsService?.technologies && cmsService.technologies.length > 0) ? cmsService.technologies : staticService?.technologies || [],
+    process: (cmsService?.process && cmsService.process.length > 0) ? cmsService.process : staticService?.process || [],
+    whyChooseUs: (cmsService?.whyChooseUs && cmsService.whyChooseUs.length > 0) ? cmsService.whyChooseUs : staticService?.whyChooseUs || [],
+    relatedServices: staticService?.relatedServices || [],
+    faqs: (cmsService?.faqs && cmsService.faqs.length > 0) ? cmsService.faqs : staticService?.faqs || [],
+    metaTitle: cmsService?.seo?.metaTitle || cmsService?.metaTitle || staticService?.metaTitle || "",
+    metaDescription: cmsService?.seo?.metaDescription || cmsService?.metaDescription || staticService?.metaDescription || "",
+  };
 
   // Structured Data Schema
   const schemaOrg = {

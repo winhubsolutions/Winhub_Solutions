@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/footer/Footer";
 import { PORTFOLIO_PROJECTS, Project } from "@/data/agencyData";
@@ -10,6 +10,34 @@ import Link from "next/link";
 export default function PortfolioPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
+  const [projects, setProjects] = useState<Project[]>(PORTFOLIO_PROJECTS);
+
+  useEffect(() => {
+    fetch("/api/projects?limit=100")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.docs && data.docs.length > 0) {
+          const mapped: Project[] = data.docs.map((d: any) => ({
+            id: String(d.id),
+            title: d.title,
+            client: d.client,
+            category: d.category,
+            featured: Boolean(d.featured),
+            year: d.year || "2026",
+            description: d.description || "",
+            challenge: d.challenge,
+            solution: d.solution,
+            technologies: d.technologies?.map((t: any) => t.tech || t) || [],
+            image: d.image?.url || "/images/projects/project1.jpg",
+            liveUrl: d.liveUrl,
+            githubUrl: d.githubUrl,
+            stats: d.results?.map((r: any) => ({ label: r.metric, value: r.value })) || [],
+          }));
+          setProjects(mapped);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const categories = [
     "All",
@@ -23,8 +51,8 @@ export default function PortfolioPage() {
 
   const filtered =
     selectedCategory === "All"
-      ? PORTFOLIO_PROJECTS
-      : PORTFOLIO_PROJECTS.filter((p) => p.category === selectedCategory);
+      ? projects
+      : projects.filter((p) => p.category === selectedCategory);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F6F6F4] dark:bg-[#0A0A0C] text-[#0A0A0A] dark:text-white transition-colors duration-300">

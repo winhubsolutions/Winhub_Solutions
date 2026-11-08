@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/context/ThemeContext";
 import CursorSpotlight from "@/components/ui/CursorSpotlight";
 import JsonLdSchema from "@/components/seo/JsonLdSchema";
+import LivePreviewListener from "@/components/live-preview/LivePreviewListener";
 import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/lib/seo/technicalSeo";
 import "../globals.css";
 
@@ -97,6 +98,7 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-[#0A0A0C] text-[#F6F6F4] dark:bg-[#0A0A0C] dark:text-[#F6F6F4]">
         <ThemeProvider>
           <CursorSpotlight />
+          <LivePreviewListener />
           {children}
         </ThemeProvider>
       </body>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/footer/Footer";
 import { SERVICES_CATALOG } from "@/data/servicesCatalog";
@@ -25,6 +25,31 @@ import {
 import Link from "next/link";
 
 export default function ServicesPage() {
+  const [servicesList, setServicesList] = useState(SERVICES_CATALOG);
+
+  useEffect(() => {
+    fetch("/api/services?limit=100")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.docs && data.docs.length > 0) {
+          const merged = SERVICES_CATALOG.map((s) => {
+            const cmsItem = data.docs.find((d: any) => d.slug === s.slug);
+            if (cmsItem) {
+              return {
+                ...s,
+                title: cmsItem.title || s.title,
+                intro: cmsItem.intro || s.intro,
+                shortTag: cmsItem.shortTag || s.shortTag,
+              };
+            }
+            return s;
+          });
+          setServicesList(merged);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F6F6F4] dark:bg-[#0A0A0C] text-[#0A0A0A] dark:text-white transition-colors duration-300">
       <Navbar />
@@ -100,7 +125,7 @@ export default function ServicesPage() {
         <section className="py-20 border-b border-[#E2E2DC] dark:border-[#222228]">
           <div className="max-w-7xl mx-auto px-4 sm:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SERVICES_CATALOG.map((service, index) => (
+              {servicesList.map((service, index) => (
                 <div
                   key={service.slug}
                   className="p-8 rounded-3xl bg-white dark:bg-[#121215] border border-[#E2E2DC] dark:border-[#222228] shadow-sm hover:border-[#FF7120] hover:shadow-xl dark:hover:shadow-none transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative overflow-hidden"

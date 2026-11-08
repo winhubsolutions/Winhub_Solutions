@@ -17,11 +17,11 @@ export const Services = {
     defaultColumns: ["title", "category", "featured", "updatedAt"],
     group: "Content",
     livePreview: {
-      url: ({ data }: any) => `http://localhost:3000/services/${data?.slug || ""}`,
+      url: ({ data }: any) => `${process.env.NEXT_PUBLIC_SERVER_URL || ""}/services/${data?.slug || ""}`,
       breakpoints: [
-        { label: "Mobile", name: "mobile", width: 375, height: 667 },
-        { label: "Tablet", name: "tablet", width: 768, height: 1024 },
-        { label: "Desktop", name: "desktop", width: 1440, height: 900 },
+        { label: "Mobile (iPhone)", name: "mobile", width: 375, height: 667 },
+        { label: "Tablet (iPad)", name: "tablet", width: 768, height: 1024 },
+        { label: "Desktop (1440p)", name: "desktop", width: 1440, height: 900 },
       ],
     },
   },

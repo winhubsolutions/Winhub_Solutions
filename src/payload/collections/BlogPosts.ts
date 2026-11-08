@@ -16,6 +16,14 @@ export const BlogPosts = {
     useAsTitle: "title",
     defaultColumns: ["title", "category", "readTime", "publishedAt"],
     group: "Content",
+    livePreview: {
+      url: ({ data }: any) => `${process.env.NEXT_PUBLIC_SERVER_URL || ""}/blog`,
+      breakpoints: [
+        { label: "Mobile (iPhone)", name: "mobile", width: 375, height: 667 },
+        { label: "Tablet (iPad)", name: "tablet", width: 768, height: 1024 },
+        { label: "Desktop (1440p)", name: "desktop", width: 1440, height: 900 },
+      ],
+    },
   },
   access: {
     read: () => true,
