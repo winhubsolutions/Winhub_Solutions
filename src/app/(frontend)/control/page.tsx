@@ -32,7 +32,9 @@ import {
   Phone,
   DollarSign,
   Calendar,
+  Sparkles,
 } from "lucide-react";
+import AutoSeoDashboard from "@/components/seo/AutoSeoDashboard";
 import { SERVICES_CATALOG } from "@/data/servicesCatalog";
 import { PORTFOLIO_PROJECTS, AGENCY_CONFIG } from "@/data/agencyData";
 
@@ -58,7 +60,7 @@ export default function AdminPortalPage() {
   const [loginError, setLoginError] = useState<string | null>(null);
 
   // Dashboard State
-  const [activeTab, setActiveTab] = useState<"dashboard" | "services" | "projects" | "leads" | "media" | "faqs" | "settings">("dashboard");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "services" | "projects" | "leads" | "media" | "faqs" | "settings" | "seo">("dashboard");
   const [searchFilter, setSearchFilter] = useState<string>("");
   const [savedNotice, setSavedNotice] = useState<string | null>(null);
 
@@ -435,6 +437,23 @@ export default function AdminPortalPage() {
                     ACTIVE
                   </span>
                 </button>
+
+                <button
+                  onClick={() => setActiveTab("seo")}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                    activeTab === "seo"
+                      ? "bg-[#FF7120] text-white font-bold shadow-md shadow-[#FF7120]/20"
+                      : "text-[#8E8E89] hover:bg-[#15151D] hover:text-white"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-[#FF7120]" />
+                    AI AutoSEO
+                  </span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-md bg-[#FF7120]/20 text-[#FF7120] font-bold">
+                    0-100
+                  </span>
+                </button>
               </nav>
             </div>
 
@@ -633,7 +652,21 @@ export default function AdminPortalPage() {
               </div>
 
               {/* Core Metric Cards */}
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div
+                  onClick={() => setActiveTab("seo")}
+                  className="p-5 rounded-2xl bg-[#111118] border border-[#20202E] hover:border-[#FF7120] transition-all cursor-pointer group space-y-2 relative overflow-hidden"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[#8E8E89] uppercase">SEO Health</span>
+                    <Sparkles className="w-4 h-4 text-[#FF7120]" />
+                  </div>
+                  <div className="text-2xl sm:text-3xl font-black text-white group-hover:text-[#FF7120] transition-colors flex items-baseline gap-1">
+                    88<span className="text-xs font-mono text-[#8E8E89]">/100</span>
+                  </div>
+                  <div className="text-[10px] font-mono text-emerald-400 font-bold">Grade A · Autopilot</div>
+                </div>
+
                 <div
                   onClick={() => setActiveTab("leads")}
                   className="p-5 rounded-2xl bg-[#111118] border border-[#20202E] hover:border-[#FF7120] transition-all cursor-pointer group space-y-2"
@@ -710,7 +743,16 @@ export default function AdminPortalPage() {
                 <span className="text-xs font-mono uppercase tracking-wider text-[#8E8E89] block">
                   // QUICK ACCESS SHORTCUTS
                 </span>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
+                  <button
+                    onClick={() => setActiveTab("seo")}
+                    className="p-3.5 rounded-xl bg-[#15151F] border border-[#222230] hover:border-[#FF7120] text-left transition-colors cursor-pointer group"
+                  >
+                    <Sparkles className="w-4 h-4 text-[#FF7120] mb-2 group-hover:rotate-12 transition-transform" />
+                    <span className="block text-xs font-bold text-white uppercase">AI AutoSEO</span>
+                    <span className="text-[10px] font-mono text-emerald-400">Score 88</span>
+                  </button>
+
                   <button
                     onClick={() => setActiveTab("services")}
                     className="p-3.5 rounded-xl bg-[#15151F] border border-[#222230] hover:border-[#FF7120] text-left transition-colors cursor-pointer"
@@ -1220,6 +1262,13 @@ export default function AdminPortalPage() {
                   <span>Commit Settings to Neon Database</span>
                 </button>
               </form>
+            </div>
+          )}
+
+          {/* AI AutoSEO Engine Command Center */}
+          {activeTab === "seo" && (
+            <div className="space-y-6">
+              <AutoSeoDashboard />
             </div>
           )}
         </main>

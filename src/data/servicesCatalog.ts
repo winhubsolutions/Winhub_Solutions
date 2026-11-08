@@ -1311,3 +1311,6 @@ export const SERVICES_CATALOG: ServiceDetail[] = [
   },
 ];
 
+export const ALL_SERVICES = SERVICES_CATALOG;
+
+

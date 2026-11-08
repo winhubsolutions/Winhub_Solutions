@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/context/ThemeContext";
 import CursorSpotlight from "@/components/ui/CursorSpotlight";
+import JsonLdSchema from "@/components/seo/JsonLdSchema";
+import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/lib/seo/technicalSeo";
 import "../globals.css";
 
 export const viewport = {
@@ -11,6 +13,7 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://winhubsolutions.com"),
   title: "Winhub Solutions | Leading Web Development & IT Solutions Company in India",
   description:
     "Winhub Solutions is a technology-driven IT company delivering innovative web development, custom software, mobile applications, AI automation and digital marketing solutions.",
@@ -32,7 +35,7 @@ export const metadata: Metadata = {
     title: "Winhub Solutions | Building Digital Solutions That Move Businesses Forward",
     description:
       "Winhub Solutions is a technology-driven IT company delivering innovative web development, custom software, mobile applications, AI automation and digital marketing solutions.",
-    url: "https://winhubsolutions.in",
+    url: "https://winhubsolutions.com",
     siteName: "Winhub Solutions",
     locale: "en_US",
     type: "website",
@@ -53,6 +56,9 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png?v=winhub4", sizes: "180x180", type: "image/png" },
     ],
   },
+  alternates: {
+    canonical: "https://winhubsolutions.com",
+  },
 };
 
 export default function RootLayout({
@@ -60,12 +66,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const orgSchema = generateOrganizationSchema();
+  const localBizSchema = generateLocalBusinessSchema();
+
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" href="/icon.png?v=winhub4" />
         <link rel="shortcut icon" href="/favicon.ico?v=winhub4" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=winhub4" />
+        <JsonLdSchema schema={orgSchema} id="organization-schema" />
+        <JsonLdSchema schema={localBizSchema} id="local-business-schema" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

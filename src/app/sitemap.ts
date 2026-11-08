@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
-import { SERVICES_CATALOG } from "@/data/servicesCatalog";
+import { ALL_SERVICES } from "@/data/servicesCatalog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://winhubsolutions.in";
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "https://winhubsolutions.com";
   const currentDate = new Date().toISOString();
 
   // Core Static Routes
@@ -38,9 +38,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/work`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/blog`,
       lastModified: currentDate,
       changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/faq`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
@@ -52,7 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Dynamic Service Routes (All 18 Disciplines)
-  const serviceRoutes: MetadataRoute.Sitemap = SERVICES_CATALOG.map((service) => ({
+  const serviceRoutes: MetadataRoute.Sitemap = ALL_SERVICES.map((service) => ({
     url: `${baseUrl}/services/${service.slug}`,
     lastModified: currentDate,
     changeFrequency: "monthly",

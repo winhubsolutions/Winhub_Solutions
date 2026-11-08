@@ -1,5 +1,6 @@
 import { slugField } from "../fields/slug";
 import { seoFields } from "../fields/seo";
+import { autoSeoBeforeChangeHook } from "../hooks/autoSeoHook";
 
 // Projects / Portfolio Collection for Winhub Solutions
 export const Projects = {
@@ -7,6 +8,9 @@ export const Projects = {
   labels: {
     singular: "Portfolio Project",
     plural: "Portfolio Projects",
+  },
+  hooks: {
+    beforeChange: [autoSeoBeforeChangeHook],
   },
   admin: {
     useAsTitle: "title",

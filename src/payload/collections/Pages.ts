@@ -1,5 +1,6 @@
 import { slugField } from "../fields/slug";
 import { seoFields } from "../fields/seo";
+import { autoSeoBeforeChangeHook } from "../hooks/autoSeoHook";
 import {
   HeroBlock,
   ServicesGridBlock,
@@ -37,6 +38,9 @@ export const Pages = {
         { label: "Desktop", name: "desktop", width: 1440, height: 900 },
       ],
     },
+  },
+  hooks: {
+    beforeChange: [autoSeoBeforeChangeHook],
   },
   access: {
     read: () => true,

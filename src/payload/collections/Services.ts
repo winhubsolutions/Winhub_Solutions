@@ -1,5 +1,6 @@
 import { slugField } from "../fields/slug";
 import { seoFields } from "../fields/seo";
+import { autoSeoBeforeChangeHook } from "../hooks/autoSeoHook";
 
 // Services Collection for Winhub Solutions
 export const Services = {
@@ -7,6 +8,9 @@ export const Services = {
   labels: {
     singular: "Service",
     plural: "Services (18 Disciplines)",
+  },
+  hooks: {
+    beforeChange: [autoSeoBeforeChangeHook],
   },
   admin: {
     useAsTitle: "title",

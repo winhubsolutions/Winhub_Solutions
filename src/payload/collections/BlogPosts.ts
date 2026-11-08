@@ -1,5 +1,6 @@
 import { slugField } from "../fields/slug";
 import { seoFields } from "../fields/seo";
+import { autoSeoBeforeChangeHook } from "../hooks/autoSeoHook";
 
 // Blog & Insights Collection for Winhub Solutions
 export const BlogPosts = {
@@ -7,6 +8,9 @@ export const BlogPosts = {
   labels: {
     singular: "Insight / Blog Post",
     plural: "Blog & Insights",
+  },
+  hooks: {
+    beforeChange: [autoSeoBeforeChangeHook],
   },
   admin: {
     useAsTitle: "title",
