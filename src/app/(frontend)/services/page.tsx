@@ -38,8 +38,8 @@ export default function ServicesPage() {
               return {
                 ...s,
                 title: cmsItem.title || s.title,
-                intro: cmsItem.intro || s.intro,
-                shortTag: cmsItem.shortTag || s.shortTag,
+                intro: cmsItem.shortDescription || cmsItem.intro || s.intro,
+                shortTag: cmsItem.category || cmsItem.shortTag || s.shortTag,
               };
             }
             return s;

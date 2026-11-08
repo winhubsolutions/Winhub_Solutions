@@ -3,6 +3,9 @@ import { withPayload } from '@payloadcms/next/withPayload';
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
   ...(process.env.OUTPUT_STANDALONE === 'true' ? { output: 'standalone' } : {}),
   eslint: {
     ignoreDuringBuilds: true,

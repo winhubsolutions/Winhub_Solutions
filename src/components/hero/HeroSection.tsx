@@ -1,16 +1,18 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
-import HeroCanvas from "./HeroCanvas";
+import { ArrowRight, CheckCircle2, Sparkles, Globe, Cpu, Waves } from "lucide-react";
+import HeroCanvas, { HeroShapeType } from "./HeroCanvas";
 import { AGENCY_CONFIG } from "@/data/agencyData";
 
 export default function HeroSection() {
+  const [activeShape, setActiveShape] = useState<HeroShapeType>("neural");
+
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-between overflow-hidden bg-[#F6F6F4] dark:bg-[#0A0A0C] border-b border-[#E2E2DC] dark:border-[#222228] pt-8 pb-12 transition-colors duration-300">
+    <section className="relative min-h-[92vh] flex flex-col justify-between overflow-hidden bg-[#F6F6F4] dark:bg-[#0A0A0C] border-b border-[#E2E2DC] dark:border-[#222228] pt-8 pb-8 transition-colors duration-300">
       {/* Interactive 3D WebGL Hero Model */}
-      <HeroCanvas currentShape="neural" />
+      <HeroCanvas currentShape={activeShape} hideControls={true} />
 
       {/* Subtle Grid Lines Overlay */}
       <div className="absolute inset-0 grid-hairline pointer-events-none opacity-30 z-0" />
@@ -23,7 +25,7 @@ export default function HeroSection() {
             {AGENCY_CONFIG.heroSmallLabel}
           </span>
           <span className="text-[#888888] dark:text-[#555555]">|</span>
-          <span className="text-[#555555] dark:text-[#A0A09B] uppercase">
+          <span className="text-[#555552] dark:text-[#A0A09B] uppercase">
             WINHUB SOLUTIONS
           </span>
         </div>
@@ -84,14 +86,76 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom Status Bar */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-8 pt-4">
-        <div className="flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-[#6E6E6A] dark:text-[#8E8E89] gap-2">
+      {/* Bottom Status Bar with Integrated 3D Model Switcher */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-8 pt-6 pb-2">
+        <div className="flex flex-col lg:flex-row items-center justify-between text-xs font-mono text-[#6E6E6A] dark:text-[#8E8E89] gap-4">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span>ENTERPRISE WEB & SOFTWARE ENGINEERING</span>
           </div>
-          <div>5+ YEARS OF EXPERIENCE · 100+ PROJECTS SHIPPED</div>
+
+          <div className="text-center font-medium">
+            5+ YEARS OF EXPERIENCE · 100+ PROJECTS SHIPPED
+          </div>
+
+          {/* Interactive 3D Model Switcher */}
+          <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/80 dark:bg-[#121216]/80 backdrop-blur-md border border-[#E2E2DC] dark:border-[#282830] shadow-sm text-xs font-mono">
+            <span className="text-[10px] text-[#888888] px-2.5 uppercase tracking-wider hidden sm:inline-block">
+              // 3D VISUAL:
+            </span>
+
+            <button
+              onClick={() => setActiveShape("globe")}
+              title="Digital Global Sphere"
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer ${
+                activeShape === "globe"
+                  ? "bg-[#FF7120] text-white font-bold shadow-sm"
+                  : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
+              }`}
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span className="text-[11px]">Globe</span>
+            </button>
+
+            <button
+              onClick={() => setActiveShape("neural")}
+              title="AI Neural Polyhedron"
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer ${
+                activeShape === "neural"
+                  ? "bg-[#FF7120] text-white font-bold shadow-sm"
+                  : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
+              }`}
+            >
+              <Cpu className="w-3.5 h-3.5" />
+              <span className="text-[11px]">Neural</span>
+            </button>
+
+            <button
+              onClick={() => setActiveShape("wave")}
+              title="Quantum Cyber Wave"
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer ${
+                activeShape === "wave"
+                  ? "bg-[#FF7120] text-white font-bold shadow-sm"
+                  : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
+              }`}
+            >
+              <Waves className="w-3.5 h-3.5" />
+              <span className="text-[11px]">Wave</span>
+            </button>
+
+            <button
+              onClick={() => setActiveShape("knot")}
+              title="Geometric Torus Knot"
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer ${
+                activeShape === "knot"
+                  ? "bg-[#FF7120] text-white font-bold shadow-sm"
+                  : "text-[#555552] dark:text-[#A0A09B] hover:text-[#0A0A0A] dark:hover:text-white"
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span className="text-[11px]">Knot</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>

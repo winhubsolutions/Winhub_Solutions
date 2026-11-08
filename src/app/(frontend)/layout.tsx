@@ -82,7 +82,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const saved = localStorage.getItem('winhub-theme') || localStorage.getItem('wintech-theme');
+                let saved = localStorage.getItem('winhub-theme-v2');
+                if (!saved) {
+                  localStorage.removeItem('winhub-theme');
+                  localStorage.removeItem('wintech-theme');
+                  localStorage.setItem('winhub-theme-v2', 'dark');
+                  saved = 'dark';
+                }
                 if (saved === 'light') {
                   document.documentElement.classList.remove('dark');
                 } else {

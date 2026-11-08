@@ -17,7 +17,11 @@ export const Services = {
     defaultColumns: ["title", "category", "featured", "updatedAt"],
     group: "Content",
     livePreview: {
-      url: ({ data }: any) => `${process.env.NEXT_PUBLIC_SERVER_URL || ""}/services/${data?.slug || ""}`,
+      url: ({ data }: any) => {
+        const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "";
+        const route = `/services/${data?.slug || ""}`;
+        return serverUrl ? `${serverUrl}${route}` : route;
+      },
       breakpoints: [
         { label: "Mobile (iPhone)", name: "mobile", width: 375, height: 667 },
         { label: "Tablet (iPad)", name: "tablet", width: 768, height: 1024 },

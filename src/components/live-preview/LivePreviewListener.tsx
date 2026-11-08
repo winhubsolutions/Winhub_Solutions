@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { RefreshRouteOnSave } from "@payloadcms/live-preview-react";
 
 export default function LivePreviewListener() {
   const router = useRouter();
-  const hasSentReady = useRef(false);
 
-  const handleMessage = useCallback(
+  const handleCustomMessage = useCallback(
     (event: MessageEvent) => {
       if (!event.data) return;
-      // Payload CMS sends document update events through window.postMessage
       if (
         event.data.type === "payload-live-preview" ||
         event.data.type === "payload-live-preview-update" ||
@@ -24,24 +23,20 @@ export default function LivePreviewListener() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      window.addEventListener("message", handleMessage);
-
-      // Signal to Payload Admin preview iframe that preview is loaded
-      if (!hasSentReady.current && window.parent && window.parent !== window) {
-        hasSentReady.current = true;
-        try {
-          window.parent.postMessage({ type: "payload-live-preview-ready" }, "*");
-        } catch (e) {}
-      }
+      window.addEventListener("message", handleCustomMessage);
+      return () => window.removeEventListener("message", handleCustomMessage);
     }
+  }, [handleCustomMessage]);
 
-    return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("message", handleMessage);
-      }
-    };
-  }, [handleMessage]);
+  const serverUrl =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
 
-  return null;
+  return (
+    <RefreshRouteOnSave
+      refresh={() => router.refresh()}
+      serverURL={serverUrl}
+    />
+  );
 }
-

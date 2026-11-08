@@ -44,21 +44,19 @@ export default buildConfig({
       ],
       collections: ["pages", "services", "projects", "blog-posts"],
       url: ({ data, collectionConfig }: any) => {
-        const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "";
         const slug = data?.slug;
+        let route = "/";
         if (collectionConfig?.slug === "pages") {
-          return `${serverUrl}/${slug === "home" || !slug ? "" : slug}`;
+          route = `/${slug === "home" || !slug ? "" : slug}`;
+        } else if (collectionConfig?.slug === "services") {
+          route = `/services/${slug || ""}`;
+        } else if (collectionConfig?.slug === "projects") {
+          route = `/portfolio`;
+        } else if (collectionConfig?.slug === "blog-posts") {
+          route = `/blog`;
         }
-        if (collectionConfig?.slug === "services") {
-          return `${serverUrl}/services/${slug || ""}`;
-        }
-        if (collectionConfig?.slug === "projects") {
-          return `${serverUrl}/portfolio`;
-        }
-        if (collectionConfig?.slug === "blog-posts") {
-          return `${serverUrl}/blog`;
-        }
-        return `${serverUrl}/`;
+        const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "";
+        return serverUrl ? `${serverUrl}${route}` : route;
       },
     },
   },
@@ -85,12 +83,69 @@ export default buildConfig({
     seoPlugin({
       collections: ["pages", "services", "projects", "blog-posts"],
       uploadsCollection: "media",
-      generateTitle: ({ doc }: any) => `${doc?.title?.value || ""} | Winhub Solutions`,
-      generateDescription: ({ doc }: any) => doc?.shortDescription?.value || doc?.heroHeadline?.value || "",
-      generateURL: ({ doc, collectionSlug }: any) => {
-        const slug = doc?.slug?.value;
-        if (collectionSlug === "pages") return `https://winhubsolutions.in/${slug === "home" ? "" : slug}`;
-        return `https://winhubsolutions.in/${collectionSlug}/${slug}`;
+      generateTitle: ({ doc, data }: any) => {
+        const target = doc || data || {};
+        const title =
+          (typeof target.title === "object" ? target.title?.value : target.title) ||
+          (typeof target.name === "object" ? target.name?.value : target.name) ||
+          (typeof target.h1Heading === "object" ? target.h1Heading?.value : target.h1Heading) ||
+          "";
+
+        if (!title) return "Winhub Solutions | Leading Web & Software Development";
+
+        let fullTitle = `${title.trim()} | Winhub Solutions`;
+        if (fullTitle.length < 50) {
+          fullTitle = `${title.trim()} Company in India | Winhub Solutions`;
+        }
+        if (fullTitle.length > 60) {
+          fullTitle = fullTitle.slice(0, 57) + "...";
+        }
+        return fullTitle;
+      },
+      generateDescription: ({ doc, data }: any) => {
+        const target = doc || data || {};
+        const desc =
+          (typeof target.shortDescription === "object" ? target.shortDescription?.value : target.shortDescription) ||
+          (typeof target.heroSubtitle === "object" ? target.heroSubtitle?.value : target.heroSubtitle) ||
+          (typeof target.description === "object" ? target.description?.value : target.description) ||
+          "";
+
+        const title =
+          (typeof target.title === "object" ? target.title?.value : target.title) ||
+          (typeof target.name === "object" ? target.name?.value : target.name) ||
+          "Software Development";
+
+        if (!desc) {
+          return `Partner with Winhub Solutions for industry-leading ${title.toLowerCase()} services in India. Scalable architecture, high security, and dedicated engineering teams.`;
+        }
+
+        let clean = desc.replace(/\s+/g, " ").trim();
+        if (clean.length < 100) {
+          clean = `${clean} Scalable software engineering and dedicated developers by Winhub Solutions.`;
+        }
+        if (clean.length > 155) {
+          clean = clean.slice(0, 152) + "...";
+        }
+        return clean;
+      },
+      generateURL: ({ doc, collectionSlug, data }: any) => {
+        const target = doc || data || {};
+        const slug =
+          (typeof target.slug === "object" ? target.slug?.value : target.slug) || "";
+        const base = "https://winhubsolutions.com";
+        if (collectionSlug === "pages") {
+          return `${base}/${slug === "home" || !slug ? "" : slug}`;
+        }
+        if (collectionSlug === "services") {
+          return `${base}/services/${slug}`;
+        }
+        if (collectionSlug === "projects") {
+          return `${base}/portfolio`;
+        }
+        if (collectionSlug === "blog-posts") {
+          return `${base}/blog/${slug}`;
+        }
+        return `${base}/${collectionSlug || "pages"}/${slug}`;
       },
     }),
   ],

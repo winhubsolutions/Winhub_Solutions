@@ -17,8 +17,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Default to dark mode unless explicitly set to light
-    const saved = localStorage.getItem("winhub-theme") as Theme | null;
+    // Default strictly to dark mode
+    let saved = localStorage.getItem("winhub-theme-v2") as Theme | null;
+    if (!saved) {
+      localStorage.removeItem("winhub-theme");
+      localStorage.removeItem("wintech-theme");
+      localStorage.setItem("winhub-theme-v2", "dark");
+      saved = "dark";
+    }
     if (saved === "light") {
       setThemeState("light");
       document.documentElement.classList.remove("dark");
@@ -31,7 +37,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    localStorage.setItem("winhub-theme", newTheme);
+    localStorage.setItem("winhub-theme-v2", newTheme);
     if (newTheme === "dark") {
       document.documentElement.classList.add("dark");
     } else {

@@ -17,7 +17,11 @@ export const Projects = {
     defaultColumns: ["title", "client", "category", "featured", "year"],
     group: "Content",
     livePreview: {
-      url: () => `${process.env.NEXT_PUBLIC_SERVER_URL || ""}/portfolio`,
+      url: () => {
+        const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "";
+        const route = `/portfolio`;
+        return serverUrl ? `${serverUrl}${route}` : route;
+      },
       breakpoints: [
         { label: "Mobile (iPhone)", name: "mobile", width: 375, height: 667 },
         { label: "Tablet (iPad)", name: "tablet", width: 768, height: 1024 },

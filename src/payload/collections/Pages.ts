@@ -30,7 +30,9 @@ export const Pages = {
     livePreview: {
       url: ({ data }: any) => {
         const slug = data?.slug === "home" ? "" : (data?.slug || "");
-        return `${process.env.NEXT_PUBLIC_SERVER_URL || ""}/${slug}`;
+        const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "";
+        const route = `/${slug}`;
+        return serverUrl ? `${serverUrl}${route}` : route;
       },
       breakpoints: [
         { label: "Mobile (iPhone)", name: "mobile", width: 375, height: 667 },
