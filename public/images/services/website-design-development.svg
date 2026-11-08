@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E0E12"/>
+      <stop offset="50%" stop-color="#14141A"/>
+      <stop offset="100%" stop-color="#08080A"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF7120" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FF7120" stop-opacity="0.0"/>
+    </linearGradient>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#FFFFFF" stroke-width="0.5" stroke-opacity="0.06"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="400" rx="24" fill="url(#bgGrad)"/>
+  <rect width="600" height="400" rx="24" fill="url(#grid)"/>
+
+  <!-- Glowing Orb -->
+  <circle cx="480" cy="100" r="160" fill="url(#glow)" filter="blur(40px)"/>
+
+  <!-- Border -->
+  <rect x="1.5" y="1.5" width="597" height="397" rx="22.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1.5"/>
+
+  <!-- Header telemetry bar -->
+  <g transform="translate(35, 45)">
+    <circle cx="6" cy="6" r="5" fill="#FF7120"/>
+    <circle cx="6" cy="6" r="8" fill="none" stroke="#FF7120" stroke-opacity="0.4"/>
+    <text x="24" y="10" fill="#A0A09B" font-family="monospace" font-size="11" letter-spacing="1.5" font-weight="bold">WINHUB SOLUTIONS // SYSTEM SPEC</text>
+    <rect x="410" y="-3" width="120" height="20" rx="10" fill="#FFFFFF" fill-opacity="0.07"/>
+    <text x="470" y="11" fill="#FF7120" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">LATENCY 12ms</text>
+  </g>
+
+  <!-- Central Graphic Module -->
+  <g transform="translate(35, 95)">
+    <!-- Outer Card Frame -->
+    <rect width="530" height="200" rx="16" fill="#000000" fill-opacity="0.4" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1"/>
+
+    <!-- Holographic visual circuit -->
+    <path d="M 40 40 L 140 40 L 180 80 L 350 80 L 390 120 L 490 120" fill="none" stroke="#FF7120" stroke-width="2" stroke-opacity="0.7" stroke-dasharray="6 4"/>
+    <circle cx="140" cy="40" r="4" fill="#FF7120"/>
+    <circle cx="180" cy="80" r="4" fill="#FFFFFF"/>
+    <circle cx="350" cy="80" r="4" fill="#FF7120"/>
+    <circle cx="390" cy="120" r="4" fill="#FF7120"/>
+
+    <!-- Central Tech Display -->
+    <text x="40" y="55" fill="#FFFFFF" font-family="sans-serif" font-weight="900" font-size="22" letter-spacing="-0.5">Modern Responsive Web Design</text>
+    <text x="40" y="82" fill="#FF7120" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="1">// CROSS-DEVICE DESIGN CANVAS</text>
+    
+    <!-- Code / Architecture preview badge -->
+    <rect x="40" y="105" width="450" height="65" rx="10" fill="#111116" stroke="#FFFFFF" stroke-opacity="0.05"/>
+    <text x="55" y="128" fill="#E5E5E0" font-family="monospace" font-size="12">$ core.deploy(&quot;website-design-development&quot;, target=&quot;production&quot;)</text>
+    <text x="55" y="150" fill="#8E8E89" font-family="monospace" font-size="11">✓ Mobile First · CSS Grid · Fluid Layouts</text>
+  </g>
+
+  <!-- Bottom Badges -->
+  <g transform="translate(35, 325)">
+    <rect width="280" height="36" rx="18" fill="#FFFFFF" fill-opacity="0.05" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <text x="20" y="22" fill="#FFFFFF" font-family="sans-serif" font-weight="bold" font-size="12">Ultra-fast Global Edge CDN</text>
+
+    <rect x="300" y="0" width="230" height="36" rx="18" fill="#FF7120" fill-opacity="0.15" stroke="#FF7120" stroke-opacity="0.4"/>
+    <text x="415" y="22" fill="#FF7120" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">ENTERPRISE CERTIFIED ✓</text>
+  </g>
+</svg>

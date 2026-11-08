@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="pGrad_custom-erp-saas" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111116"/>
+      <stop offset="60%" stop-color="#181822"/>
+      <stop offset="100%" stop-color="#0A0A0D"/>
+    </linearGradient>
+    <linearGradient id="glow_custom-erp-saas" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF7120" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FF7120" stop-opacity="0.0"/>
+    </linearGradient>
+    <pattern id="grid_custom-erp-saas" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#FFFFFF" stroke-width="0.5" stroke-opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <rect width="600" height="360" rx="20" fill="url(#pGrad_custom-erp-saas)"/>
+  <rect width="600" height="360" rx="20" fill="url(#grid_custom-erp-saas)"/>
+  <circle cx="500" cy="80" r="140" fill="url(#glow_custom-erp-saas)" filter="blur(40px)"/>
+
+  <rect x="1.5" y="1.5" width="597" height="357" rx="18.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1.5"/>
+
+  <!-- Top bar -->
+  <g transform="translate(30, 35)">
+    <rect width="110" height="22" rx="11" fill="#FF7120" fill-opacity="0.15" stroke="#FF7120" stroke-opacity="0.3"/>
+    <text x="55" y="15" fill="#FF7120" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">CASE STUDY</text>
+    <text x="540" y="16" fill="#8E8E89" font-family="monospace" font-size="11" text-anchor="end">Global Logistics Group</text>
+  </g>
+
+  <!-- Main Showcase -->
+  <g transform="translate(30, 80)">
+    <rect width="540" height="170" rx="14" fill="#050508" fill-opacity="0.6" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    
+    <!-- Decorative waveform / graph -->
+    <path d="M 40 120 Q 90 40 140 100 T 240 60 T 340 110 T 440 40 T 500 80" fill="none" stroke="#FF7120" stroke-width="2.5" stroke-opacity="0.6"/>
+    
+    <text x="30" y="45" fill="#FFFFFF" font-family="sans-serif" font-weight="900" font-size="20">Enterprise ERP & Workflow System</text>
+    <text x="30" y="72" fill="#A0A09B" font-family="monospace" font-size="11">Tech: Next.js · Node.js · PostgreSQL · Tailwind</text>
+
+    <!-- Metric Pill -->
+    <rect x="30" y="105" width="280" height="36" rx="10" fill="#16161F" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <text x="45" y="128" fill="#FF7120" font-family="monospace" font-size="12" font-weight="bold">★ IMPACT: +300% Operational Speed</text>
+  </g>
+
+  <!-- Bottom Details -->
+  <g transform="translate(30, 285)">
+    <text x="0" y="20" fill="#8E8E89" font-family="monospace" font-size="11">WINTECH SOLUTIONS // DELIVERED PRODUCTION READY</text>
+    <text x="540" y="20" fill="#FF7120" font-family="monospace" font-size="12" font-weight="bold" text-anchor="end">VIEW CASE STUDY →</text>
+  </g>
+</svg>
