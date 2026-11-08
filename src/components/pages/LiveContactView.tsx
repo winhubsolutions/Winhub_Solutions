@@ -122,7 +122,7 @@ export default function LiveContactView({ initialDoc }: LiveContactViewProps) {
               {headlineNode}
             </h1>
 
-            <p className="text-base sm:text-xl text-[#4A4A46] dark:text-[#B0B0A8] max-w-3xl leading-relaxed mb-8">
+            <p className="text-base sm:text-xl text-[#4A4A46] dark:text-[#FBFBF6] max-w-3xl leading-relaxed mb-8">
               {subtitle}
             </p>
 

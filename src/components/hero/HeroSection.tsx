@@ -45,7 +45,7 @@ export default function HeroSection() {
           </h1>
 
           {/* Descriptive Subtitle */}
-          <p className="text-base sm:text-lg md:text-xl text-[#4A4A46] dark:text-[#B0B0A8] font-normal leading-relaxed max-w-3xl mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-[#4A4A46] dark:text-[#FBFBF6] font-normal leading-relaxed max-w-3xl mb-8">
             {AGENCY_CONFIG.description}
           </p>
 

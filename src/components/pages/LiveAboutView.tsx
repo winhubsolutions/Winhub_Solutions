@@ -134,7 +134,7 @@ export default function LiveAboutView({ initialDoc }: LiveAboutViewProps) {
               {headlineNode}
             </h1>
 
-            <p className="text-base sm:text-xl text-[#4A4A46] dark:text-[#B0B0A8] max-w-3xl leading-relaxed">
+            <p className="text-base sm:text-xl text-[#4A4A46] dark:text-[#FBFBF6] max-w-3xl leading-relaxed">
               {subtitle}
             </p>
           </div>

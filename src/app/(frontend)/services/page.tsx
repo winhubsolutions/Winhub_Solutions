@@ -95,7 +95,7 @@ export default function ServicesPage() {
               </span>
             </h1>
 
-            <p className="text-base sm:text-xl text-[#4A4A46] dark:text-[#B0B0A8] max-w-3xl leading-relaxed mb-8">
+            <p className="text-base sm:text-xl text-[#4A4A46] dark:text-[#FBFBF6] max-w-3xl leading-relaxed mb-8">
               At Winhub Solutions, we provide end-to-end technology services to help
               organizations build, modernize and expand their digital infrastructure.
               Explore our 18 specialized disciplines below.
