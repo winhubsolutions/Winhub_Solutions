@@ -105,9 +105,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'site-settings': SiteSetting;
+    'auto-seo': AutoSeo;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'auto-seo': AutoSeoSelect<false> | AutoSeoSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1564,6 +1566,34 @@ export interface SiteSetting {
   createdAt?: string | null;
 }
 /**
+ * Autonomous SEO monitoring, indexing telemetry, and ranking optimization engine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auto-seo".
+ */
+export interface AutoSeo {
+  id: number;
+  /**
+   * Calculated dynamically across all 18 services and core landing pages.
+   */
+  healthScore?: number | null;
+  healthGrade?: string | null;
+  telemetry?: {
+    searchConsoleConnected?: boolean | null;
+    ga4PropertyId?: string | null;
+    pageSpeedMobileScore?: number | null;
+  };
+  automation?: {
+    dailyLinkCheck?: boolean | null;
+    weeklyRankingAudit?: boolean | null;
+    monthlyGrowthReport?: boolean | null;
+  };
+  lastAuditTimestamp?: string | null;
+  optimizationNotes?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
@@ -1588,6 +1618,33 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         github?: T;
         instagram?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auto-seo_select".
+ */
+export interface AutoSeoSelect<T extends boolean = true> {
+  healthScore?: T;
+  healthGrade?: T;
+  telemetry?:
+    | T
+    | {
+        searchConsoleConnected?: T;
+        ga4PropertyId?: T;
+        pageSpeedMobileScore?: T;
+      };
+  automation?:
+    | T
+    | {
+        dailyLinkCheck?: T;
+        weeklyRankingAudit?: T;
+        monthlyGrowthReport?: T;
+      };
+  lastAuditTimestamp?: T;
+  optimizationNotes?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -1,6 +1,5 @@
-import AdminPortalPage from "../page";
+import { redirect } from "next/navigation";
 
-export default function LoginPage() {
-  return <AdminPortalPage />;
+export default function ControlLoginRedirect() {
+  redirect("/admin");
 }
-

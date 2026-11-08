@@ -21,6 +21,7 @@ import { Testimonials } from "./payload/collections/Testimonials";
 import { FAQs } from "./payload/collections/FAQs";
 import { Media } from "./payload/collections/Media";
 import { SiteSettings } from "./payload/globals/SiteSettings";
+import { AutoSeoSettings } from "./payload/globals/AutoSeoSettings";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -52,6 +53,7 @@ export default buildConfig({
 
   globals: [
     SiteSettings as any,
+    AutoSeoSettings as any,
   ],
 
   plugins: [
