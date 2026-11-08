@@ -53,8 +53,8 @@ interface ContactSubmission {
 
 export default function AdminPortalPage() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("admin@winhubsolutions.in");
-  const [password, setPassword] = useState<string>("admin123");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [dbAdapter, setDbAdapter] = useState<"neon-postgres" | "mongodb" | "local">("neon-postgres");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -123,6 +123,18 @@ export default function AdminPortalPage() {
   };
 
   useEffect(() => {
+    // Check if session is already active
+    fetch("/api/control/auth")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.authenticated) {
+          setIsAuthenticated(true);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
     if (isAuthenticated) {
       fetchLeads();
       fetchMedia();
@@ -175,19 +187,36 @@ export default function AdminPortalPage() {
     }
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setLoginError(null);
 
-    setTimeout(() => {
-      if (email.trim() && password.trim()) {
+    try {
+      const res = await fetch("/api/control/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
         setIsAuthenticated(true);
       } else {
-        setLoginError("Please enter valid administrator credentials.");
+        setLoginError(data.error || "Invalid administrator credentials.");
       }
+    } catch (err) {
+      setLoginError("Authentication server error. Please try again.");
+    } finally {
       setIsLoading(false);
-    }, 400);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/control/auth", { method: "DELETE" });
+    } catch (e) {}
+    setIsAuthenticated(false);
+    setPassword("");
   };
 
   const handleSaveSettings = async (e: React.FormEvent) => {
@@ -277,7 +306,8 @@ export default function AdminPortalPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      placeholder="admin@winhubsolutions.in"
+                      autoComplete="username"
+                      placeholder="admin@winhubsolutions.com"
                       className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#161620] border border-[#2B2B38] text-white text-xs font-mono focus:outline-none focus:border-[#FF7120] transition-colors"
                     />
                   </div>
@@ -294,7 +324,8 @@ export default function AdminPortalPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      placeholder="••••••••••••"
+                      autoComplete="current-password"
+                      placeholder="Enter master password"
                       className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#161620] border border-[#2B2B38] text-white text-xs font-mono focus:outline-none focus:border-[#FF7120] transition-colors"
                     />
                   </div>
@@ -348,7 +379,7 @@ export default function AdminPortalPage() {
 
               <div className="mt-8 pt-6 border-t border-[#1C1C26] text-center">
                 <span className="text-[10px] font-mono text-[#666666]">
-                  Production Credentials Pre-filled · Ready to Inspect
+                  Protected System · Authorized Engineering Personnel Only
                 </span>
               </div>
             </div>
@@ -402,7 +433,7 @@ export default function AdminPortalPage() {
           </Link>
 
           <button
-            onClick={() => setIsAuthenticated(false)}
+            onClick={handleLogout}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-xs font-mono text-red-400 border border-red-500/25 transition-colors cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
